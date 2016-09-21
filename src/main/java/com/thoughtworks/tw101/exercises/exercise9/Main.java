@@ -10,13 +10,13 @@ public class Main {
     public static void main(String[] args) {
         Node root = new Node("Cecil");
 
-        root.add("Michelle");
-        root.add("Bill");
-        root.add("Jagruti");
-        root.add("Tess");
-        root.add("Sue-Ellen");
-        root.add("Sara");
-        root.add("Casey");
+        root.add(root, "Michelle");
+        root.add(root, "Bill");
+        root.add(root, "Jagruti");
+        root.add(root, "Tess");
+        root.add(root, "Sue-Ellen");
+        root.add(root, "Sara");
+        root.add(root, "Casey");
 
         List<String> names = root.names();
 

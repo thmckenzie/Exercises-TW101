@@ -5,95 +5,73 @@ import com.sun.source.tree.BinaryTree;
 import java.util.List;
 
 public class Node {
-    public BinaryTree bt;
     private String name;
-    private Node parent;
-    private Node root;
     private Node left;
     private Node right;
 
-
-    public void add(String n){
-        root = add(root, n);
-    }
 
 
     //Recursively finds the correct place to add a new node-- attempting to implement binary search tree
     public Node add(Node node, String nameOfNewNode) {
         //If the tree is empty, create a new tree with this node as the root
-        if (root == null) {
-            root = node;
-        }
-
-        Node currNode = root;
-        parent = null;
-
-        while (true) {
-            parent = currNode;
-            if (nameOfNewNode < parent.getName()) {
-                currNode = currNode.getLeft();
-                if (currNode == null) {
-                    parent.getLeft() = node;
-                }
-            } else {
-                currNode = currNode.getRight();
-                if (currNode == null) {
-                    node = parent.getRight();
-                }
-            }
-        }
-    }
-
-
-        /*if(node == null){
+        if (node == null) {
             node = new Node(nameOfNewNode);
-        }else{
-            //if no right child, make node the right child
-            if(node.getRight() == null){
+        } else {
+            /*if the name of the new node is "less than" the current tree/node's name,
+            recursively add it as the left child of the current tree/node, else recursively add to the right child
+             */
+            if(nameOfNewNode < node.getName()){
+                node.left = add(node.left, nameOfNewNode);
+            }else{
                 node.right = add(node.right, nameOfNewNode);
             }
-            //if no left child, make node left child
-            else{
-                node.left = add(node.left, nameOfNewNode);
-            }
+            return node;
         }
-        return node;*/
+
+    }
 
 
     //Set left node
-    public void setLeft(Node n){
+    private void setLeft(Node n){
         left = n;
     }
-
     //Set right node
-    public void setRight(Node n){
+    private void setRight(Node n){
         right = n;
     }
-
     //Get left node
-    public Node getLeft(){
+    private Node getLeft(){
         return left;
     }
-
     //Get right node
-    public Node getRight(){
+    private Node getRight(){
         return right;
     }
-
     //Set name of node
-    public void setName(String s){
+    private void setName(String s){
         name = s;
     }
-
     //Get name of node
-    public String getName(){
+    private String getName(){
         return name;
     }
 
-    //Returns the names of all of the nodes in alphabetical order recursively
-    public List<String> names() {
 
-        return null;
+    //Returns the names of all of the nodes in alphabetical order recursively
+    public List<String> names(Node node) {
+        /*Check if the current node is empty/null,
+            traverse the left subtree by recursively calling names,
+            add the string name of the current node to the list,
+            traverse the right subtree by recursively calling names
+         */
+
+        List<String> nameList;
+        if(node != null){
+            names(node.getLeft());
+            nameList.add(node.getName());
+            names(node.getRight());
+        }
+        return nameList;
     }
 
     //Constructor
