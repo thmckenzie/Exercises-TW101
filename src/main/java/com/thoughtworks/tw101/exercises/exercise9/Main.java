@@ -18,10 +18,10 @@ public class Main {
         root.add(root, "Sara");
         root.add(root, "Casey");
 
-        List<String> names = root.names();
+        //List<String> names = root.names();
 
-        for (String name : names) {
-            System.out.println(name);
-        }
+        //for (String name : names) {
+           // System.out.println(name);
+        //}
     }
 }

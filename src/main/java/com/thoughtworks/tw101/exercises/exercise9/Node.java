@@ -2,6 +2,7 @@ package com.thoughtworks.tw101.exercises.exercise9;
 
 import com.sun.source.tree.BinaryTree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
@@ -20,14 +21,16 @@ public class Node {
             /*if the name of the new node is "less than" the current tree/node's name,
             recursively add it as the left child of the current tree/node, else recursively add to the right child
              */
-            if(nameOfNewNode < node.getName()){
+            if((nameOfNewNode.toLowerCase()).compareTo(node.getName()) < 0){
                 node.left = add(node.left, nameOfNewNode);
-            }else{
+            }else if ((nameOfNewNode.toLowerCase()).compareTo(node.getName()) > 0){
                 node.right = add(node.right, nameOfNewNode);
+            }else{
+                //Name is already in the tree, add as left child.
+                node.left = add(node.left, nameOfNewNode);
             }
-            return node;
         }
-
+        return node;
     }
 
 
@@ -56,22 +59,27 @@ public class Node {
         return name;
     }
 
-
-    //Returns the names of all of the nodes in alphabetical order recursively
-    public List<String> names(Node node) {
+    //names helper method
+    private List<String> namesHelper(Node node){
         /*Check if the current node is empty/null,
             traverse the left subtree by recursively calling names,
             add the string name of the current node to the list,
             traverse the right subtree by recursively calling names
          */
 
-        List<String> nameList;
+        List<String> nameList = new ArrayList<>();
         if(node != null){
             names(node.getLeft());
             nameList.add(node.getName());
             names(node.getRight());
         }
         return nameList;
+    }
+
+
+    //Returns the names of all of the nodes in alphabetical order recursively
+    public List<String> names() {
+        namesHelper();
     }
 
     //Constructor
